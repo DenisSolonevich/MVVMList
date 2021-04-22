@@ -3,6 +3,7 @@ package by.densolo.demousers.features.user.list
 import by.densolo.demousers.features.user.list.remote.UserItem
 import by.densolo.demousers.features.user.list.room.mapToRemote
 import io.reactivex.Observable
+import io.reactivex.Single
 import timber.log.Timber
 
 class UserRepository (
@@ -10,20 +11,20 @@ class UserRepository (
         private val userRemoteDataSource: UserRemoteDataSource
     ) {
 
+    fun getUser(id: Int): Single<UserItem> {
+        return userLocalDataSource.getUser(id)
+            .flatMap {
+                Single.just(
+                    it.mapToRemote()
+                )
+            }
+    }
+
     fun getUserList(): Observable<List<UserItem>> {
         val remoteRequest = getRemoteUserList()
         val localRequest = getLocalUserList()
 
         return Observable.concat(localRequest, remoteRequest)
-    }
-
-    fun reloadUserList(): Observable<List<UserItem>> {
-        return userRemoteDataSource.getUserList().toObservable()
-                .flatMap {
-                    Timber.e("#getRemoteUserList")
-                    userLocalDataSource.saveRemoteUserList(it)
-                            .andThen(Observable.just(it))
-                }
     }
 
     private fun getRemoteUserList(): Observable<List<UserItem>> {

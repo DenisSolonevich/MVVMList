@@ -11,7 +11,21 @@ class AlbumsRepository(
     private val albumsRemoteDataSource: AlbumRemoteDataSource
     ) {
 
-//    fun getAlbumList(): Observable<List<AlbumItem>> {
+    fun getAlbumsForUser(userId: Int): Flowable<List<AlbumItem>> {
+        val remoteRequest = getRemoteAlbumsForUser(userId)
+        val localRequest = getLocalAlbumsForUser(userId)
+
+        return localRequest.toFlowable()
+            .filter { it.isNotEmpty() }
+            .switchIfEmpty(
+                remoteRequest
+                    .flatMap {
+                        albumsLocalDataSource.saveRemoteAlbumList(it)
+                            .andThen(Flowable.just(it))
+                    }
+            )
+    }
+
     fun getAlbumList(): Flowable<List<AlbumItem>> {
         val remoteRequest = getRemoteAlbumList()
         val localRequest = getLocalAlbumList()
@@ -19,21 +33,25 @@ class AlbumsRepository(
         return Single.concat(localRequest, remoteRequest)
     }
 
-//    private fun getRemoteAlbumList(): Observable<List<AlbumItem>> {
-    private fun getRemoteAlbumList(): Single<List<AlbumItem>> {
-//        return albumsRemoteDataSource.getAlbumList().toObservable()
+    fun getRemoteAlbumList(): Single<List<AlbumItem>> {
         return albumsRemoteDataSource.getAlbumList()
-                .flatMap {
-                    Timber.d("Prepared ${it.size} albums for the database")
-                    albumsLocalDataSource.saveRemoteAlbumList(it)
-//                            .andThen(Observable.just(it))
-                            .andThen(Single.just(it))
+    }
+
+    private fun getRemoteAlbumsForUser(userId: Int): Flowable<List<AlbumItem>> {
+        return albumsRemoteDataSource.getAlbumsForUser(userId).toFlowable()
+    }
+
+    private fun getLocalAlbumsForUser(userId: Int): Single<List<AlbumItem>> {
+        return albumsLocalDataSource.getAlbumsForUser(userId)
+                .flatMap { entities ->
+                    Timber.d("Loaded ${entities.size} albums from the database")
+                    Single.just(
+                            entities.map { it.mapToRemote() }
+                    )
                 }
     }
 
-//    private fun getLocalAlbumList(): Observable<List<AlbumItem>> {
     private fun getLocalAlbumList(): Single<List<AlbumItem>> {
-//        return albumsLocalDataSource.getAlbumList().toObservable()
         return albumsLocalDataSource.getAlbumList()
                 .flatMap { entities ->
                     Timber.d("Loaded ${entities.size} albums from the database")
