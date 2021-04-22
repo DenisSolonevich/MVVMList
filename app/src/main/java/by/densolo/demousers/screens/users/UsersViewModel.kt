@@ -38,33 +38,14 @@ class UsersViewModel @Inject constructor(private val userRepository: UserReposit
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _currentStatus.value = "onNext (network)"
+                    _currentStatus.value = "onNext"
                     _userList.value = it
                 }, {
-                    _currentStatus.value = "onError (network)"
+                    _currentStatus.value = "onError"
                     _loadingState.value = false
                     Timber.e(it)
                 }, {
-                    _currentStatus.value = "onComplete (network)"
-                    _loadingState.value = false
-                }
-                )
-    }
-
-    private fun getLocalUsers(): Disposable {
-        _loadingState.value = true
-        return userRepository.getLocalUserList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    _currentStatus.value = "onNext (local)"
-                    _userList.value = it
-                }, {
-                    _currentStatus.value = "onError (local)"
-                    _loadingState.value = false
-                    Timber.e(it)
-                }, {
-                    _currentStatus.value = "onComplete (local)"
+                    _currentStatus.value = "onComplete"
                     _loadingState.value = false
                 }
                 )
@@ -72,10 +53,6 @@ class UsersViewModel @Inject constructor(private val userRepository: UserReposit
 
     fun loadUsers() {
         compositeDisposable.add(getUsers())
-    }
-
-    fun loadLocalUsers() {
-        compositeDisposable.add(getLocalUsers())
     }
 
     override fun onCleared() {

@@ -13,7 +13,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+// Nice placeholder, but not working now error 520 (22.04.2021)
 private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+// Flexible placeholder with generated data
+private const val BASE_URL_MOCKEND = "https://mockend.com/DenisSolonevich/mockend_test/"
 
 @Module
 open class NetworkModule {
@@ -33,7 +36,7 @@ open class NetworkModule {
     @Provides
     @Singleton
     open fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BASE_URL_MOCKEND)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(okHttpClient)

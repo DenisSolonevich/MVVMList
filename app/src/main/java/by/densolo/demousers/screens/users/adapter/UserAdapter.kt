@@ -38,7 +38,10 @@ class UserAdapter(private val clickClickListener: UserClickListener): ListAdapte
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                submitList(results?.values as List<UserItem>)
+                if (results!!.values == null) {
+                    return
+                }
+                submitList(results.values as List<UserItem>)
             }
         }
     }

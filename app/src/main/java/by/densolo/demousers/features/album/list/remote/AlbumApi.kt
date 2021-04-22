@@ -3,13 +3,32 @@ package by.densolo.demousers.data.features.user.remote
 import by.densolo.demousers.features.album.list.retrofit.AlbumItem
 import io.reactivex.Single
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface AlbumApi {
-    // https://jsonplaceholder.typicode.com/albums
-    @GET("albums/")
+/* Mockend provides the next query params:
+    _eq _ne
+    equal, not equal
+
+    _gt _lt
+    greater than, lower than
+
+    _order
+    sort data (asc desc)
+
+    limit offset
+    use them to paginate your results */
+
+
+//    @GET("albums")
+//    @GET("posts")
+    @GET("todos?userId_gt=1&id_gt=1")
     fun getAlbumList(): Single<List<AlbumItem>>
 
-    @GET("albums?userId={id}/")
-    fun getAlbumsForUser(@Path("id") id: Int): Single<List<AlbumItem>>
+    /**
+     * There is used "_lt - lower than" query to emulate multiple items with equal "userId"
+     * "_gt" used to not include "0"
+     */
+    @GET("todos?userId_gt=1&id_gt=1")
+    fun getAlbumsForUser(@Query("userId_lt") id: Int): Single<List<AlbumItem>>
 }
