@@ -13,6 +13,8 @@ class UserAdapter(private val clickClickListener: UserClickListener): ListAdapte
     UserDiffCallback()
 ), Filterable {
 
+    lateinit var users: List<UserItem>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
             LayoutInflater.from(parent.context)
@@ -30,13 +32,20 @@ class UserAdapter(private val clickClickListener: UserClickListener): ListAdapte
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                return FilterResults().apply { values = currentList.filter { it.name.contains(constraint!!, true)} }
+                return FilterResults().apply {
+                    values = users.filter { it.name.contains(constraint!!, true)}
+                }
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 submitList(results?.values as List<UserItem>)
             }
         }
+    }
+
+    fun putUsers(users: List<UserItem>) {
+        this.users = users
+        submitList(users)
     }
 }
 

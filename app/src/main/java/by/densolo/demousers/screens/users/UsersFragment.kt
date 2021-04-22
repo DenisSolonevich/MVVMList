@@ -17,6 +17,7 @@ import by.densolo.demousers.DemoUsersApp
 import by.densolo.demousers.R
 import by.densolo.demousers.databinding.FragmentUsersBinding
 import by.densolo.demousers.di.ViewModelFactory
+import by.densolo.demousers.screens.albums.AlbumsFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import javax.inject.Inject
 
@@ -42,7 +43,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
         viewModel.userList.observe(viewLifecycleOwner, {
             it?.let {
-                userAdapter.submitList(it)
+                userAdapter.putUsers(it)
             }
         })
 
@@ -76,20 +77,18 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             setOnQueryTextListener(
                     object : SearchView.OnQueryTextListener {
                         override fun onQueryTextSubmit(constraint: String?): Boolean {
-                            userAdapter.submitList(viewModel.userList.value)
                             userAdapter.filter.filter(constraint)
-                            return true
+                            return false
                         }
 
                         override fun onQueryTextChange(constraint: String?): Boolean {
-                            userAdapter.submitList(viewModel.userList.value)
                             userAdapter.filter.filter(constraint)
-                            return true
+                            return false
                         }
                     }
             )
             setOnCloseListener {
-                viewModel.loadLocalUsers()
+                viewModel.userList.value?.let { userAdapter.putUsers(it) }
                 false
             }
         }
