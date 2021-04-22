@@ -1,8 +1,8 @@
 package by.densolo.demousers.screens.users
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.densolo.demousers.features.album.list.AlbumsRepository
 import by.densolo.demousers.features.user.list.UserRepository
 import by.densolo.demousers.features.user.list.remote.UserItem
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,56 +12,60 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-
-/**
- * It has unused param for the reason of testing.
- */
-class UsersViewModel @Inject constructor(private val albumRepository: AlbumsRepository, private val userRepository: UserRepository): ViewModel() {
+class UsersViewModel @Inject constructor(private val userRepository: UserRepository): ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    val userList : MutableLiveData<List<UserItem>> = MutableLiveData()
-    val loadingState: MutableLiveData<Boolean> = MutableLiveData()
-    val currentStatus: MutableLiveData<String> = MutableLiveData()
+    private val _userList = MutableLiveData<List<UserItem>>()
+    val userList : LiveData<List<UserItem>>
+        get() = _userList
+
+    private val _loadingState: MutableLiveData<Boolean> = MutableLiveData()
+    val loadingState: LiveData<Boolean>
+        get() = _loadingState
+
+    private val _currentStatus: MutableLiveData<String> = MutableLiveData()
+    val currentStatus: LiveData<String>
+        get() = _currentStatus
 
     init {
         compositeDisposable.add(getUsers())
     }
 
     private fun getUsers(): Disposable {
-        loadingState.value = true
+        _loadingState.value = true
         return userRepository.getUserList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    currentStatus.value = "onNext"
-                    userList.value = it
+                    _currentStatus.value = "onNext (network)"
+                    _userList.value = it
                 }, {
-                    currentStatus.value = "onError"
+                    _currentStatus.value = "onError (network)"
+                    _loadingState.value = false
                     Timber.e(it)
-                    loadingState.value = false
                 }, {
-                    currentStatus.value = "onComplete"
-                    loadingState.value = false
+                    _currentStatus.value = "onComplete (network)"
+                    _loadingState.value = false
                 }
                 )
     }
 
     private fun getLocalUsers(): Disposable {
-        loadingState.value = true
+        _loadingState.value = true
         return userRepository.getLocalUserList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    currentStatus.value = "onNext"
-                    userList.value = it
+                    _currentStatus.value = "onNext (local)"
+                    _userList.value = it
                 }, {
-                    currentStatus.value = "onError"
+                    _currentStatus.value = "onError (local)"
+                    _loadingState.value = false
                     Timber.e(it)
-                    loadingState.value = false
                 }, {
-                    currentStatus.value = "onComplete"
-                    loadingState.value = false
+                    _currentStatus.value = "onComplete (local)"
+                    _loadingState.value = false
                 }
                 )
     }

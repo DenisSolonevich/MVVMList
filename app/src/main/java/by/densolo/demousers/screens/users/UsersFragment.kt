@@ -6,10 +6,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.densolo.demousers.screens.users.adapter.UserAdapter
 import by.densolo.demousers.screens.users.adapter.UserClickListener
@@ -17,7 +17,6 @@ import by.densolo.demousers.DemoUsersApp
 import by.densolo.demousers.R
 import by.densolo.demousers.databinding.FragmentUsersBinding
 import by.densolo.demousers.di.ViewModelFactory
-import by.densolo.demousers.screens.albums.AlbumsFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import javax.inject.Inject
 
@@ -27,6 +26,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
     private val viewModel: UsersViewModel by viewModels { viewModelFactory }
     private val binding: FragmentUsersBinding by viewBinding()
+
 
     lateinit var userAdapter: UserAdapter
 
@@ -38,7 +38,9 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         DemoUsersApp.appComponent.inject(this)
 
         userAdapter = UserAdapter(UserClickListener {
-            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                UsersFragmentDirections.actionNavigationUsersToAlbumsFragment(it.id)
+            )
         })
 
         viewModel.userList.observe(viewLifecycleOwner, {
