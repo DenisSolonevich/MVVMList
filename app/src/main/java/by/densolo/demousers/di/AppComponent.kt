@@ -7,6 +7,7 @@ import by.densolo.demousers.features.album.list.AlbumsDataModule
 import by.densolo.demousers.screens.users.UsersFragment
 import by.densolo.demousers.screens.home.HomeFragment
 import by.densolo.demousers.screens.about.AboutFragment
+import by.densolo.demousers.screens.albums.AlbumsFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -21,6 +22,8 @@ interface AppComponent {
 
     fun inject(homeFragment: HomeFragment)
 
-    fun inject(notificationFragment: AboutFragment)
+    fun inject(aboutFragment: AboutFragment)
+
+    fun inject(albumsFragment: AlbumsFragment)
 
 }

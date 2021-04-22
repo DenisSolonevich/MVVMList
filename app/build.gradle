@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id "androidx.navigation.safeargs"
 }
 
 android {
@@ -146,6 +147,8 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
 
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"

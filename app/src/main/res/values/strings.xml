@@ -14,5 +14,5 @@
     <string name="status"></string>
     <string name="search_hint">Search</string>
     <string name="refresh_title">Refresh</string>
-    <string name="about">This is a demo app to show the usage of MVVM, Retrofit, Room, Dagger 2, RX, Lists with Filter and DiffUtils, and implemented lazy data update to Repository.</string>
+    <string name="about">This is a demo app to show the usage of MVVM, Retrofit, Room, Dagger 2, RX, Lists with Filter, DiffUtils, and implemented lazy data update to Repository.</string>
 </resources>
