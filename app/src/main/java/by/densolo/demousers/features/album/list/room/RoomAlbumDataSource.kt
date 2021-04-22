@@ -9,6 +9,8 @@ class RoomAlbumDataSource(private val albumDao: AlbumDao): AlbumLocalDataSource 
 
     override fun getAlbumList(): Single<List<AlbumEntity>> = albumDao.getAlbumList()
 
+    override fun getAlbumsForUser(userId: Int): Single<List<AlbumEntity>> = albumDao.getAlbumsForUser(userId)
+
     override fun saveRemoteAlbumList(albumItems: List<AlbumItem>): Completable =
             albumDao.addAlbumList(albumItems.map {
                 AlbumEntity(

@@ -10,7 +10,7 @@ interface UserDao {
     fun getUserList(): Single<List<UserEntity>>
 
     @Query("SELECT * FROM ${UserEntity.TABLE_NAME} WHERE :userId = id")
-    fun getUserList(userId: Int): Single<List<UserEntity>>
+    fun getUser(userId: Int): Single<UserEntity>
 
     @Insert(entity = UserEntity::class, onConflict = OnConflictStrategy.REPLACE)
     fun addUser(userEntity: UserEntity): Completable

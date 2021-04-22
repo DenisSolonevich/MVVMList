@@ -7,6 +7,7 @@ import io.reactivex.Single
 
 interface UserLocalDataSource {
 
+    fun getUser(id: Int): Single<UserEntity>
     fun getUserList(): Single<List<UserEntity>>
     fun saveRemoteUserList(userItems: List<UserItem>): Completable
 }

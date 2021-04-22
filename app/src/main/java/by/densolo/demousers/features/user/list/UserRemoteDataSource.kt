@@ -5,4 +5,5 @@ import io.reactivex.Single
 
 interface UserRemoteDataSource {
     fun getUserList(): Single<List<UserItem>>
+    fun getUser(id: Int): Single<UserItem>
 }

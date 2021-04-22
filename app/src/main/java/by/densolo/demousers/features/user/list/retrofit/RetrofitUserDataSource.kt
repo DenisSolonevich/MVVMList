@@ -8,5 +8,7 @@ import javax.inject.Inject
 
 class RetrofitUserDataSource @Inject constructor(private val userApi: UserApi): UserRemoteDataSource {
 
+    override fun getUser(id: Int): Single<UserItem> = userApi.getUser(id)
+
     override fun getUserList(): Single<List<UserItem>> = userApi.getUserList()
 }

@@ -7,6 +7,8 @@ import io.reactivex.Single
 
 class RoomUserDataSource(private val userDao: UserDao): UserLocalDataSource {
 
+    override fun getUser(id: Int): Single<UserEntity> = userDao.getUser(id)
+
     override fun getUserList(): Single<List<UserEntity>> = userDao.getUserList()
 
     override fun saveRemoteUserList(userItems: List<UserItem>): Completable =

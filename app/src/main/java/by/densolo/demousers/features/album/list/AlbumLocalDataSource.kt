@@ -7,6 +7,7 @@ import io.reactivex.Single
 
 interface AlbumLocalDataSource {
 
+    fun getAlbumsForUser(userId: Int): Single<List<AlbumEntity>>
     fun getAlbumList(): Single<List<AlbumEntity>>
     fun saveRemoteAlbumList(albumItems: List<AlbumItem>): Completable
 }
