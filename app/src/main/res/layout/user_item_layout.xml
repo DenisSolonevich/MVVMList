@@ -8,7 +8,7 @@
     android:layout_margin="4dp">
 
     <ImageView
-        android:id="@+id/ivPicture"
+        android:id="@+id/userPicture"
         android:layout_width="60dp"
         android:layout_height="0dp"
         android:padding="4dp"
@@ -19,25 +19,24 @@
         tools:background="@tools:sample/avatars"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvAlbumTitle"
+        android:id="@+id/userTitle"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivPicture"
+        app:layout_constraintStart_toEndOf="@+id/userPicture"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/cities" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDetails"
+        android:id="@+id/userDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tvAlbumTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvAlbumTitle"
+        app:layout_constraintStart_toStartOf="@+id/userTitle"
+        app:layout_constraintTop_toBottomOf="@+id/userTitle"
         tools:text="@tools:sample/lorem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

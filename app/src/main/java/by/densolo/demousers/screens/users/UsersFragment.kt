@@ -52,14 +52,14 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         }
 
         val statusObserver = Observer<String> { newName ->
-            binding.displayStatus.text = newName
+            binding.statusLine.displayStatus.text = newName
         }
 
         val loadingObserver = Observer<Boolean> { loading ->
             if (loading) {
-                binding.statusLine.visibility = View.VISIBLE
+                binding.statusLine.root.visibility = View.VISIBLE
             } else {
-                binding.statusLine.visibility = View.GONE
+                binding.statusLine.root.visibility = View.GONE
             }
         }
 

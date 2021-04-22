@@ -16,7 +16,7 @@ class UserAdapter(private val clickClickListener: UserClickListener): ListAdapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_layout, parent, false)
+                .inflate(R.layout.user_item_layout, parent, false)
         )
     }
 

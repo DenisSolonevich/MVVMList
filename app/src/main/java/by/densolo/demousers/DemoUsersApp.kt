@@ -8,9 +8,7 @@ import timber.log.Timber
 
 class DemoUsersApp: Application() {
 
-
     companion object{ lateinit var appComponent: AppComponent }
-
 
     override fun onCreate() {
         super.onCreate()
@@ -19,12 +17,11 @@ class DemoUsersApp: Application() {
             .builder()
             .networkModule(NetworkModule())
             .appModule(AppModule(this))
-//            .albumsDataModule(AlbumsDataModule())
+            .albumsDataModule(AlbumsDataModule())
             .databaseModule(DatabaseModule())
             .userDataModule(UserDataModule())
             .build()
 
-//        appComponent.inject(this)
         Timber.plant(Timber.DebugTree())
     }
 }
