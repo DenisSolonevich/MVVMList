@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">DemoUsers</string>
+    <string name="title_home">Home</string>
+    <string name="title_users">Demo</string>
+    <string name="title_about">About</string>
+
+    <string name="picture">The picture of the item</string>
+    <string name="search">Search by name</string>
+    <string name="load">Load</string>
+    <string name="btn_search">Search</string>
+    <string name="refresh">Refresh</string>
+    <string name="title_details">Title details</string>
+    <string name="title_info">Title info</string>
+    <string name="status"></string>
+    <string name="search_hint">Search</string>
+    <string name="refresh_title">Refresh</string>
+    <string name="about">This is a demo app to show the usage of MVVM, Retrofit, Room, Dagger 2, RX, Lists with Filter and DiffUtils, and implemented lazy data update to Repository.</string>
+</resources>
