@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id "androidx.navigation.safeargs"
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -18,7 +18,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -51,105 +50,69 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
     implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     // android support libraries
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
-
-    implementation "androidx.vectordrawable:vectordrawable:$rootProject.vectorDrawableVersion"
-    implementation "androidx.vectordrawable:vectordrawable-animated:$rootProject.animatedVectorDrawableVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     // lifecycle, livedata, view model
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycleVersion"
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    kapt "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    // network
-    implementation "com.amitshekhar.android:rx2-android-networking:$rootProject.rx2FastAndroidNetworking"
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
 
     // database
     implementation "androidx.room:room-runtime:$rootProject.roomDatabaseVersion"
     implementation "androidx.room:room-rxjava2:$rootProject.roomDatabaseVersion"
-    annotationProcessor "androidx.room:room-compiler:$rootProject.roomDatabaseVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomDatabaseVersion"
-
-    // font
-    implementation "uk.co.chrisjenx:calligraphy:$rootProject.calligraphyVersion"
-
-    // image
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-
-    // debug database
-    debugImplementation "com.amitshekhar.android:debug-db:$rootProject.debugDBVersion"
 
     // dependency injection
     implementation "com.google.dagger:dagger:$rootProject.dagger2Version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
-
-    implementation "com.google.dagger:dagger-android:$rootProject.dagger2Version"
-    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
-    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
-
-//    implementation "com.google.dagger:hilt-android:$hilt_version"
-//    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-
+    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
+    kaptTest "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
 
     // reactive
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+//    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:2.3.1"
 
-    // swipe view
-    implementation "com.mindorks:placeholderview:$rootProject.placeholderviewVersion"
+    // UI
+    implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
+    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
 
-    // logger
+    // View binding
+    implementation "com.github.kirich1409:viewbindingpropertydelegate:1.4.4"
+
+    // Networking
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.7.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.4.0"
+
+    // Parser
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-runtime-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+    // Logger
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
-    // dependencies for local unit tests
-    testImplementation "junit:junit:$rootProject.ext.junitVersion"
+    // Unit tests
+    testImplementation "junit:junit:$rootProject.junitVersion"
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
-    testAnnotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
 
-    // UI Testing
+    // UI testing
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
     androidTestImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
-    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
 
-    // UI
-    implementation "androidx.activity:activity-ktx:$rootProject.activity_version"
-    implementation "androidx.fragment:fragment-ktx:$rootProject.fragment_version"
-
-    // view binding
-    implementation "com.github.kirich1409:viewbindingpropertydelegate:1.4.4"
-
-    // networking
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.7.1"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
-
-    // navigation
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
-
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    // Feature module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
-
-    // parser
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 }

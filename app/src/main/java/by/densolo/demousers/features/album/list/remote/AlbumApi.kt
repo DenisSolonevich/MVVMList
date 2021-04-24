@@ -1,4 +1,4 @@
-package by.densolo.demousers.data.features.user.remote
+package by.densolo.demousers.features.album.list.remote
 
 import by.densolo.demousers.features.album.list.retrofit.AlbumItem
 import io.reactivex.Single

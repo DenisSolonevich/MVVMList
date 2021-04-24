@@ -1,6 +1,6 @@
 package by.densolo.demousers.features.album.list
 
-import by.densolo.demousers.data.features.user.remote.AlbumApi
+import by.densolo.demousers.features.album.list.remote.AlbumApi
 import by.densolo.demousers.DemoUsersDatabase
 import by.densolo.demousers.features.album.list.retrofit.RetrofitAlbumDataSource
 import by.densolo.demousers.features.album.list.room.RoomAlbumDataSource

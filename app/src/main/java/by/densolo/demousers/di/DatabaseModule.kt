@@ -1,6 +1,6 @@
 package by.densolo.demousers.di
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
 import by.densolo.demousers.DemoUsersDatabase
 import dagger.Module
@@ -12,7 +12,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context) =
+    fun provideDatabase(context: Application) =
         Room.databaseBuilder(
             context,
             DemoUsersDatabase::class.java,

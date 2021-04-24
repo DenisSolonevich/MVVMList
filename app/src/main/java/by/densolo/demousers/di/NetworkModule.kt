@@ -1,6 +1,6 @@
 package by.densolo.demousers.di
 
-import by.densolo.demousers.data.features.user.remote.AlbumApi
+import by.densolo.demousers.features.album.list.remote.AlbumApi
 import by.densolo.demousers.data.features.user.remote.UserApi
 import by.densolo.demousers.BuildConfig
 import dagger.Module
